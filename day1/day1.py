@@ -25,6 +25,17 @@ def compute_total_distance(csv_data: str) -> int:
     list_one, list_two = read_and_sort_historians_lists(csv_data)
     return calculate_distance_between_lists(list_one, list_two)
 
+def compute_similarity_score(csv_data: str) -> int:
+    list_one, list_two = read_and_sort_historians_lists(csv_data)
+    set_one = set(list_one)
+    similarity_score = 0
+    for num in set_one:
+        similarity_score += num * list_one.count(num) * list_two.count(num)
+    return similarity_score
+           
+
 if __name__ == '__main__':
 
-    print(compute_total_distance('day1/input.csv'))
+    print('Total Distance:',compute_total_distance('day1/input.csv'))
+    print('Similarity Score:',compute_similarity_score('day1/input.csv'))
+    

@@ -1,7 +1,7 @@
 import pandas as pd
 from io import StringIO
 import pytest
-from day1 import read_and_sort_historians_lists, calculate_distance_between_lists, compute_total_distance
+from day1 import read_and_sort_historians_lists, calculate_distance_between_lists, compute_total_distance, compute_similarity_score
 
 @pytest.fixture
 def sample_csv_string():
@@ -54,3 +54,29 @@ def test_single_row_input():
     assert calculate_distance_between_lists(list_one, list_two) == 10
     assert compute_total_distance(single_row_csv) == 10
 
+def test_example_input():
+    csv_data = """3 4
+4 3
+2 5
+1 3
+3 9
+3 3"""
+    assert compute_similarity_score(csv_data) == 31
+
+def test_no_common_numbers():
+    csv_data = """1 2
+3 4
+5 6
+7 8"""
+    assert compute_similarity_score(csv_data) == 0
+
+def test_with_duplicates():
+    csv_data = """3 4
+3 4
+4 4
+3 3"""
+    assert compute_similarity_score(csv_data) == 21
+
+def test_single_element_lists():
+    csv_data = """1 2"""
+    assert compute_similarity_score(csv_data) == 0
