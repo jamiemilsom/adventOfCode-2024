@@ -44,6 +44,13 @@ def is_list_safe(lst):
         
     return True
 
+def is_list_safe_with_one_removed(lst):
+    for i in range(len(lst)):
+        new_lst = lst[:i] + lst[i+1:]
+        if is_list_safe(new_lst):
+            return True
+    return False
+
 def read_csv_rows_as_numbers(file_path):
     rows = []
     with open(file_path, 'r') as file:
@@ -54,12 +61,17 @@ def read_csv_rows_as_numbers(file_path):
     
 if __name__ == '__main__':
     rows = read_csv_rows_as_numbers('day2/input.txt')
-    count = 0
+    pt_1_count, pt_2_count = 0, 0
     for row in rows:
         if is_list_safe(row):
-            count+=1
-            print(row)
+            pt_1_count += 1
+        if is_list_safe_with_one_removed(row):
+            pt_2_count += 1
             
-    print(count)
+    print('part 1:',pt_1_count)
+    print('part 2:',pt_2_count)
+    
+    
+    
     
     
