@@ -23,6 +23,15 @@ def sum_mul_statements(mul_statements):
         total += int(statement[0]) * int(statement[1])
     return total
 
+def find_do_statements(input_string):
+    potential_do_statements = input_string.split('do()')
+    do_statements = []
+    for statement in potential_do_statements:
+        if statement[:5] != "n't()":
+            do_statement = statement.split("don't")[0]
+            do_statements.append(do_statement)
+            
+    return do_statements
 
 
 if __name__ == '__main__':
@@ -30,3 +39,8 @@ if __name__ == '__main__':
     mul_statements = find_mul_statements(input_string)
     total = sum_mul_statements(mul_statements)
     print('part 1:', total)
+    
+    do_statements = find_do_statements(input_string)
+    mul_statements = find_mul_statements(''.join(do_statements))
+    total = sum_mul_statements(mul_statements)
+    print('part 2:', total)
