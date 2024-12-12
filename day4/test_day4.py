@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from day4 import read_input_as_np_array, transform_input_to_rows, transform_input_to_columns, transform_input_to_neg_diagonals, transform_input_to_pos_diagonals, count_xmas_matches
+from day4 import read_input_as_np_array, transform_input_to_rows, transform_input_to_columns, transform_input_to_neg_diagonals, transform_input_to_pos_diagonals, count_xmas_matches, transform_input_to_cross, count_xmas_cross_matches
 
 def test_count_xmas_matches_single_word():
     assert count_xmas_matches(['xmas']) == 1
@@ -49,4 +49,28 @@ def test_transform_input_to_pos_diagonals_uneven_array():
     
     np_input = np.array([['a','b','c','d'],['e','f','g','h'],['i','j','k','l']])
     assert transform_input_to_pos_diagonals(np_input) == ['a','eb','ifc','jgd','kh','l']
+    
 
+def test_transform_input_to_cross_5_by_4_arr():
+
+    np_input = np.array([['a','b','c','d','e'],
+                         ['f','g','h','i','j'],
+                         ['k','l','m','n','o'],
+                         ['p','q','r','s','t']])
+    assert transform_input_to_cross(np_input) == [['a', 'c', 'g', 'k', 'm'], ['b', 'd', 'h', 'l', 'n'], ['c', 'e', 'i', 'm', 'o'], ['f', 'h', 'l', 'p', 'r'], ['g', 'i', 'm', 'q', 's'], ['h', 'j', 'n', 'r', 't']]
+
+def test_transform_input_to_cross_varied_capitalisation():
+    
+    np_input = np.array([['a','B','c','d','e'],
+                         ['f','g','H','i','j'],
+                         ['k','l','m','N','o'],
+                         ['p','Q','r','s','T']])
+    assert transform_input_to_cross(np_input) == [['a', 'c', 'g', 'k', 'm'], ['b', 'd', 'h', 'l', 'n'], ['c', 'e', 'i', 'm', 'o'], ['f', 'h', 'l', 'p', 'r'], ['g', 'i', 'm', 'q', 's'], ['h', 'j', 'n', 'r', 't']]
+
+def test_count_xmas_cross_matches_no_matches():
+    cross_input = [['a', 'c', 'g', 'k', 'm'], ['b', 'd', 'h', 'l', 'n'], ['c', 'e', 'i', 'm', 'o'], ['f', 'h', 'l', 'p', 'r'], ['g', 'i', 'm', 'q', 's'], ['h', 'j', 'n', 'r', 't']]
+    assert count_xmas_cross_matches(cross_input) == 0
+    
+def test_count_xmas_cross_matches_valid_input():
+    cross_input = [['m','m','a','s','s']]
+    assert count_xmas_cross_matches(cross_input) == 1
