@@ -82,4 +82,5 @@ if __name__ == '__main__':
     correct_orders = [check_page_number_order(page_numbers, convert_rules_to_dict(rules))[0] for page_numbers in page_numbers_list if check_page_number_order(page_numbers, convert_rules_to_dict(rules))[1]]
     print('part 1:', sum(find_middle_page_number(correct_orders)))
     
-    # 5129 is the correct answer
+    incorrect_orders = [check_page_number_order(page_numbers, convert_rules_to_dict(rules))[0] for page_numbers in page_numbers_list if not check_page_number_order(page_numbers, convert_rules_to_dict(rules))[1]]
+    print('part 2:', sum(find_middle_page_number(incorrect_orders)))
